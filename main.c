@@ -96,8 +96,8 @@ void insert(int rc, sqlite3 *db, char *sql, char *zErrMsg){
     const char* data = "Callback function called";
     rc = sqlite3_exec(db, sql, callback, (void*)data, &zErrMsg);
     if( rc != SQLITE_OK ){
-        fprintf(stderr, "SQL error: %s\n", zErrMsg);
-        sqlite3_free(zErrMsg);
+//        fprintf(stderr, "SQL error: %s\n", zErrMsg);
+//        sqlite3_free(zErrMsg);
     }else{
         fprintf(stdout, "Operation done successfully\n");
     }
