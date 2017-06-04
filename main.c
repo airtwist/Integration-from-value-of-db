@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sqlite3.h>
+//#include "libs/sqlite3.h"
 #include <math.h>
 
 #define N 10000 // N - это количество отрезков на которое мы рубим функцию
@@ -16,8 +17,10 @@ static int callback(void *data, int argc, char **argv, char **azColName){
     for(i=0; i<argc; i++){
         printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
     }
-    a = atof(argv[0]);
-    b = atof(argv[1]);
+    if(argv[0] && argv[1]){
+        a = atof(argv[0]);
+        b = atof(argv[1]);
+    }
     printf("\n");
     return 0;
 }
@@ -36,7 +39,7 @@ int main(int argc, const char * argv[]) { // главная функция об�
 
     double S = 0, x, h; // сами переменные
 
-    char *sql = (char *) "SELECT * FROM main LIMIT 1;";
+    char *sql = (char *) "SELECT * FROM fgsfds LIMIT 1;";
 
 
     const char* data = "Callback function called";
@@ -49,8 +52,14 @@ int main(int argc, const char * argv[]) { // главная функция об�
     }
 
 
-
-
+//    sql = "INSERT INTO fgsfds VALUES(4,3)";
+//    rc = sqlite3_exec(db, sql, callback, (void*)data, &zErrMsg);
+//    if( rc != SQLITE_OK ){
+//        fprintf(stderr, "SQL error: %s\n", zErrMsg);
+//        sqlite3_free(zErrMsg);
+//    }else{
+//        fprintf(stdout, "Operation done successfully\n");
+//    }
 
 
     //отрезок [a, b] разобьем на N частей
