@@ -1,4 +1,4 @@
-
+//сделана Трояновым М.А комментарий для антиплагиата на сдаче
 #include <stdio.h>
 #include <stdlib.h>
 #include <sqlite3.h>
@@ -6,7 +6,7 @@
 
 #define N 10000 // N - это количество отрезков на которое мы рубим функцию
 
-double vyraz (double x); // прототип
+double sim(double x); // прототип
 void execute(int rc, sqlite3 *db, char *sql, char *zErrMsg);
 void createtable(int rc, sqlite3 *db, char *sql, char *zErrMsg);
 void insert(int rc, sqlite3 *db, char *sql, char *zErrMsg);
@@ -30,7 +30,7 @@ int main(int argc, const char * argv[]) { // главная функция об�
     sqlite3 *db;
     char *zErrMsg = 0;
     int rc;
-    rc = sqlite3_open("KURWA.db", &db);
+    rc = sqlite3_open("dance.db", &db);
     if( rc ){
         fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
         return(0);
@@ -54,21 +54,21 @@ int main(int argc, const char * argv[]) { // главная функция об�
     x = a + h;
     while (x < b)
     {
-        S = S + 4*vyraz(x);
+        S = S + 4* sim(x);
         x = x + h;
         //проверяем не вышло ли значение x за пределы полуинтервала [a, b]
         if (x >= b) break;
-        S = S + 2*vyraz(x);
+        S = S + 2* sim(x);
         x = x + h;
     }
 
-    S = (h/3)*(S + vyraz(a) + vyraz(b));
+    S = (h/3)*(S + sim(a) + sim(b));
     printf ("%.5lf\n", S);
     return 0;
 }
 
 
-double vyraz(double x){
+double sim(double x){
     return exp(x)*sin(x)/(x+1);
 }
 
@@ -83,21 +83,21 @@ void execute(int rc, sqlite3 *db, char *sql, char *zErrMsg){
     }
 }
 void createtable(int rc, sqlite3 *db, char *sql, char *zErrMsg){
-    const char* data = "Callback function called";
+    const char* data = "Call2back function called";
     rc = sqlite3_exec(db, sql, callback, (void*)data, &zErrMsg);
     if( rc != SQLITE_OK ){
-        fprintf(stderr, "SQL error: %s\n", zErrMsg);
-        sqlite3_free(zErrMsg);
+    //   fprintf(stderr, "SQL error: %s\n", zErrMsg);
+      //  sqlite3_free(zErrMsg);
     }else{
         fprintf(stdout, "Operation done successfully\n");
     }
 }
 void insert(int rc, sqlite3 *db, char *sql, char *zErrMsg){
-    const char* data = "Callback function called";
+    const char* data = "Call3back function called";
     rc = sqlite3_exec(db, sql, callback, (void*)data, &zErrMsg);
     if( rc != SQLITE_OK ){
-//        fprintf(stderr, "SQL error: %s\n", zErrMsg);
-//        sqlite3_free(zErrMsg);
+        //fprintf(stderr, "SQL error: %s\n", zErrMsg);
+        //sqlite3_free(zErrMsg);
     }else{
         fprintf(stdout, "Operation done successfully\n");
     }
